@@ -78,6 +78,8 @@ type ModalContextState = {
   selectedLocation: any;
   setSelectedLocation: any;
   detectUserLocation: any;
+  getLocationByIp:any
+  setCurrentCordinates:any
 };
 
 const ModalContext = createContext<ModalContextState | undefined>(undefined);
@@ -430,6 +432,8 @@ export const ModalProvider = ({ children }: { children: any }) => {
     selectedLocation,
     setSelectedLocation,
     detectUserLocation,
+    getLocationByIp,
+    setCurrentCordinates
   };
 
   return (
