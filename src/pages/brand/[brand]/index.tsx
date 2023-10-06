@@ -16,27 +16,24 @@ export default function SingleBrand({
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: "blocking",
+//   };
+// }
 
-export async function getStaticProps({
-  locale,
-  params,
-}: {
-  locale: any;
-  params: any;
-}) {
-  const brandsProductsData = await getBrandProductData(
-    params.brand,
-    "",
-    "",
-    0,
-    locale
-  );
+export async function getServerSideProps(context: any) {
+  const { params, locale } = context;
+
+  const brandsProductsData = await getBrandProductData({
+    brandName: params.brand,
+    catSlug: params.singleCategory,
+    filterPath: "",
+    noOfProducts: 0,
+    lang: locale,
+    context,
+  });
   return {
     props: {
       brandsProductsData: brandsProductsData.data,
