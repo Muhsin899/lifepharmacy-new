@@ -19,7 +19,8 @@ const LocationModal = () => {
     setCurrentLocation,
     setSelectedLocation,
     setAddressDataIndex,
-    detectUserLocation
+    detectUserLocation,
+    getLocationByIp,setCurrentCordinates
     
   } = useModal();
 
@@ -67,8 +68,21 @@ const LocationModal = () => {
   // };
 
   const detectLocation = () => {
-    detectUserLocation()
-    router.reload();
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentCordinates(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          router.reload();
+        },
+        (error) => {
+          getLocationByIp();
+          router.reload();
+        }
+      );
+    }
 
   }
 
