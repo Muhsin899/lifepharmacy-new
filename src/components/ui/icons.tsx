@@ -237,7 +237,22 @@ const Icons: React.FC<IconProps> = ({ type, iconIsLoading, ref, ...props }) => {
       return <MapPinIcon {...props} />;
 
     case "hamburgerMenuIcon":
-      return <Menu {...props} />;
+      return (
+        <svg
+          {...props}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      );
 
     case "chevronBottomIcon":
       return <ChevronDown {...props} />;
@@ -246,9 +261,16 @@ const Icons: React.FC<IconProps> = ({ type, iconIsLoading, ref, ...props }) => {
       return <Info {...props} />;
 
     case "chevronRightIcon":
-      return <ChevronRight {...props} />;
+      return <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" >
+  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+</svg>
+
 
     case "chevronLeftIcon":
+      return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    
     case "chevronBottomIcon":
       return <ChevronLeft {...props} />;
     case "brandsIcon":

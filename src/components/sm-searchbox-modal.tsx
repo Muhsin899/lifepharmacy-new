@@ -45,7 +45,6 @@ export default function SmSearchBoxModal() {
               inputClassName="bg-slate-100 py-1"
               placeholder="Search for products..."
               variant={"smallSearch"}
-              sizes={"sm"}
               iconLeft={
                 <Icon
                   type="searchIcon"

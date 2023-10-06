@@ -6,8 +6,7 @@ import ProductsSlider from "./products-slider";
 import BreadCrumb from "./breadcrumb";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-
-import { Swiper as SwiperType } from "swiper";
+import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useCartActions } from "@/hooks/useCartActions";
 import { Button, buttonVariants } from "./ui/button";
@@ -28,6 +27,10 @@ import { FrequentlyBroughtComp } from "./frequently-bought";
 import { useLanguage } from "@/hooks/useLanguage";
 import getFrequentlyBroughtTogetherData from "@/lib/frequentlyBroughtTogether";
 import { AnimatedCheckMark } from "./animated-checkmark";
+import { Pagination, Navigation, Autoplay, Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const SingleProductsContent = ({
   pro_data,
@@ -48,7 +51,23 @@ const SingleProductsContent = ({
     ? cartItems.cart.cart_data.items
     : [];
 
-  const { AddressDataIndex, setaddNewAddress } = useModal();
+  const { AddressDataIndex, locationOnClickHandle } = useModal();
+
+  const formatDate = (dateTimeString: string): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const formattedDate = new Date(dateTimeString).toLocaleString(
+      "en-US",
+      options
+    );
+    return formattedDate;
+  };
 
   const getProductQuantity = (productId: any) => {
     const productItem = cartItemsData?.find((item: any) =>
@@ -109,7 +128,7 @@ const SingleProductsContent = ({
     setCartItemsAddTimeout(timeout);
   };
 
-  const swiperRef = useRef<SwiperType>();
+  const swiperRef2 = useRef<SwiperType>();
 
   // console.log(frequentlyBroughtData);
   // // const { loading, setLoadingState } = useModal();
@@ -121,12 +140,10 @@ const SingleProductsContent = ({
     });
     createCart(cartInit);
 
-    setTimeout(()=>{
-
-      setFrequentlyBroughtData(null)
-    setLoadingState(true);
-
-    },700)
+    setTimeout(() => {
+      setFrequentlyBroughtData(null);
+      setLoadingState(true);
+    }, 700);
 
     // setFrequentlyBroughtData((data:any)=>data.state="checked")
   };
@@ -158,7 +175,7 @@ const SingleProductsContent = ({
                 </div>
               </div>
 
-              <div className="  lg:mt-0 md:col-span-5  min-[570px]:col-span-6 col-span-full">
+              <div className="  lg:mt-0 md:col-span-5 mt-3  min-[570px]:col-span-6 col-span-full">
                 <Typography variant={"lifeText"} size={"lg"}>
                   {pro_data.title}
                 </Typography>
@@ -215,7 +232,7 @@ const SingleProductsContent = ({
                     </div>
                     <Button
                       variant={"primaryLink"}
-                      onClick={() => setaddNewAddress(true)}
+                      onClick={() => locationOnClickHandle()}
                     >
                       CHANGE
                     </Button>
@@ -364,7 +381,7 @@ const SingleProductsContent = ({
               <Typography size={"xl"} bold={"semibold"}>
                 Frequently Bought Together
               </Typography>
-              <div className="space-x-5 flex items-center">
+              <div className="space-x-5  items-center md:flex hidden ">
                 <div className="space-y-2">
                   <Typography
                     size={"sm"}
@@ -407,9 +424,45 @@ const SingleProductsContent = ({
                 setCheckedProducts={setCheckedProducts}
                 setAddedToCartItemData={setAddedToCartItemData}
                 frequentlyBroughtData={frequentlyBroughtData}
-                swiperRef={swiperRef}
+
               />
             )}
+            <div className="md:space-x-5  items-center md:hidden sm:flex block">
+              <div className="space-y-2 sm:w-1/4 w-full sm:py-0 pb-3">
+                <Typography
+                  size={"sm"}
+                  alignment={"horizontalCenter"}
+                  className="text-slate-700"
+                >
+                  Total Amount
+                </Typography>
+                <Typography
+                  alignment={"horizontalCenter"}
+                  variant={"lifeText"}
+                  size={"sm"}
+                  bold={"semibold"}
+                >
+                  {currentCountryDetails.currency}{" "}
+                  {frequentlyBroughtData[0].proData.reduce(
+                    (accumulator: any, currentProduct: any) => {
+                      return accumulator + Number(currentProduct.price);
+                    },
+                    0
+                  )}
+                </Typography>
+              </div>
+              <Button
+                onClick={() => {
+                  addToCart();
+                }}
+                className="p-4 sm:!w-3/4 w-full"
+                iconLeft={
+                  <Icon type="plusIcon" sizes={"sm"} className="mx-1" />
+                }
+              >
+                ADD ALL TO CART
+              </Button>
+            </div>
           </div>
         )}
         {loadingState && (
@@ -518,47 +571,35 @@ const SingleProductsContent = ({
 
           <div className="lg:w-7/12 w-full py-3  px-2 ">
             <div className="flex justify-between items-center mb-2">
-              <Typography bold={"semibold"} size={"xxl"} className="mb-3">
+              <Typography bold={"semibold"} size={"xl"}>
                 Reviews{" "}
               </Typography>
-              <div className="flex space-x-2 rtl:space-x-reverse h-fit">
-                <Button
-                  onClick={() => swiperRef.current?.slidePrev()}
-                  className="fill-white"
-                  size={"sm"}
-                  rounded={"none"}
+              <div className="flex space-x-2 rtl:space-x-reverse h-fit items-center">
+                <button
+                  onClick={() => swiperRef2.current?.slidePrev()}
+                  className="bg-blue-500 p-1.5 rounded-full"
                 >
-                  <Icon
-                    type="chevronLeftIcon"
-                    sizes={"sm"}
-                    className="text-white "
-                  />
-                </Button>
-                <Button
-                  onClick={() => swiperRef.current?.slideNext()}
-                  className="fill-white"
-                  size={"sm"}
-                  rounded={"none"}
+                  <Icon type="chevronLeftIcon" className="text-white " />
+                </button>
+                <button
+                  onClick={() => swiperRef2.current?.slideNext()}
+                  className="bg-blue-500 p-1.5 rounded-full"
                 >
-                  <Icon
-                    type="chevronRightIcon"
-                    sizes={"sm"}
-                    className="text-white  "
-                  />
-                </Button>
+                  <Icon type="chevronRightIcon" className="text-white  " />
+                </button>
               </div>
             </div>
             <Swiper
-              slidesPerView={1}
-              pagination={true}
-              spaceBetween={10}
+              slidesPerView={2}
+              spaceBetween={5}
               onBeforeInit={(swiper) => {
-                swiperRef.current = swiper;
+                swiperRef2.current = swiper;
               }}
+              modules={[Navigation]}
             >
               {reviewsData.map((reviewData: any) => (
                 <SwiperSlide>
-                  <div className="space-y-3">
+               
                     <div className="flex justify-start py-4  bg-slate-100  rounded-lg px-4 w-full">
                       <div className="w-full">
                         <div className="flex justify-between">
@@ -566,7 +607,7 @@ const SingleProductsContent = ({
                             {reviewData.user_details.name}
                           </Typography>
                           <div className="text-gray-400 sm:text-sm text-xs ">
-                            {reviewData.created_at}
+                            {formatDate(reviewData.created_at)}
                           </div>
                         </div>
                         <div className=" w-1/2 flex justify-start space-x-0.5 py-2 rtl:space-x-reverse">
@@ -593,7 +634,7 @@ const SingleProductsContent = ({
                         </div>
                       </div>
                     </div>
-                  </div>
+              
                 </SwiperSlide>
               ))}
             </Swiper>

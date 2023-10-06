@@ -3,13 +3,16 @@ import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { Icon } from "./ui/icons";
 
-const BreadCrumb = ({ type, menuData }: {  type: string, menuData:string[] }) => {
-
-
-
+const BreadCrumb = ({
+  type,
+  menuData,
+}: {
+  type: string;
+  menuData: string[];
+}) => {
   function generatedUrl(indx: number) {
     let generatedUrl = "/";
-    menuData.slice(0, indx + 1).map((itemName: string) => {
+    menuData.slice(1, indx + 1).map((itemName: string) => {
       generatedUrl += slugify(itemName) + "/";
     });
     if (type === "category" || type === "category-menu") {
@@ -22,6 +25,7 @@ const BreadCrumb = ({ type, menuData }: {  type: string, menuData:string[] }) =>
   function slugify(text: string) {
     return text.toLowerCase().replace(/[\/\s&]+/g, "-");
   }
+
   const IsLastItem = (indx: number) => menuData.length - 1 !== indx;
 
   return (
@@ -35,7 +39,7 @@ const BreadCrumb = ({ type, menuData }: {  type: string, menuData:string[] }) =>
             href={`/`}
             className={cn(
               `ml-1 capitalize`,
-              buttonVariants({ variant: "footerLink", size: "sm" })
+              buttonVariants({ variant: "footerLink" })
             )}
           >
             Home
@@ -44,16 +48,19 @@ const BreadCrumb = ({ type, menuData }: {  type: string, menuData:string[] }) =>
         {menuData.map((item: any, indx: number) => (
           <li>
             <div className="flex items-center">
-              <Icon type="chevronRightIcon" sizes={"sm"} />
+              <Icon
+                type="chevronRightIcon"
+                sizes={"sm"}
+                className="text-slate-500"
+              />
               <Link
-                href={`${IsLastItem(indx) ? generatedUrl(indx):"#"}`}
+                href={`${!IsLastItem(indx) ? generatedUrl(indx) : "#"}`}
                 className={cn(
                   `ml-1 capitalize`,
-                  buttonVariants({ variant: "footerLink", size: "sm" })
-             
+                  buttonVariants({ variant: "footerLink" })
                 )}
               >
-                <span className="whitespace-nowrap">{item}</span> 
+                <span className="whitespace-nowrap font-[300]">{item.split("?")[0]}</span>
               </Link>
             </div>
           </li>

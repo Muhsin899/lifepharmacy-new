@@ -41,11 +41,7 @@ const ProductsPageData = ({
   const [data, setData] = useState<any>([]);
   const [productFilterApplied, setProductsFilterApplied] = useState(false);
   const [isClientSideData, setIsClientSideData] = useState(false);
-  const noOfProductsCurrently = isClientSideData
-    ? data.length
-    : categoryData.products.length;
-
-  console.log(`${noOfProductsCurrently} < ${categoryData.total_count}`);
+  const noOfProductsCurrently = data.length + categoryData.products.length;
 
   const [showMoreProductsbtn, setShowMoreProductsbtn] = useState(
     noOfProductsCurrently < categoryData.total_count
@@ -53,7 +49,7 @@ const ProductsPageData = ({
   console.log(showMoreProductsbtn);
 
   const { locale } = useLanguage();
-  const { data:session } = useSession();
+  const { data: session } = useSession();
   // console.log(noOfProductsCurrently < categoryData.total_count);
 
   useEffect(() => {
@@ -80,7 +76,12 @@ const ProductsPageData = ({
   ) {
     if (!isBrandsPage) {
       debugger;
-      getProductsDataByCat({filterPath:filterPaths, noOfProducts, lang:locale, clientSideSessionData:session}).then((proData: any) => {
+      getProductsDataByCat({
+        filterPath: filterPaths,
+        noOfProducts,
+        lang: locale,
+        clientSideSessionData: session,
+      }).then((proData: any) => {
         if (loadMoreData) {
           setData((prevContent: any) => [
             ...prevContent,
@@ -112,10 +113,11 @@ const ProductsPageData = ({
     }
     if (loadMoreData) {
       debugger;
+
       if (productsLength > noOfProductsCurrently) {
         setShowMoreProductsbtn(true);
       } else {
-        setShowMoreProductsbtn(false);
+        setShowMoreProductsbtn(true);
       }
     }
   }
@@ -173,7 +175,16 @@ const ProductsPageData = ({
               next={loadMoreProducts}
               hasMore={showMoreProductsbtn}
               loader={
-                Array(12).fill(<ProductsSkeleton />)
+                <div
+                  className={`md:grid-cols-4   sm:gap-3 gap-1 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1  grid mt-3 ${
+                    selectedUserPrefernece &&
+                    selectedUserPrefernece.value === "row"
+                      ? "!grid-cols-1 !gap-0"
+                      : ""
+                  }`}
+                >
+                  {Array(4).fill(<ProductsSkeleton />)}
+                </div>
               }
             >
               <div

@@ -192,7 +192,7 @@ const AddNewAddressForm = ({
           </Typography>
 
           <Input
-            sizes={"xs"}
+            sizes={"sm"}
             rounded={"sm"}
             {...register("phone", {
               required: true,
@@ -200,9 +200,9 @@ const AddNewAddressForm = ({
                 isValidPhoneNumber(
                   "+" + selectedCountryData.callingCodes + value
                 ),
-              // value: formData.phone,
+           
             })}
-            className={`font-semibold !text-base ${
+            className={`font-semibold  leading-[1] !text-lg ${
               errors.phone?.type === "validate" ? "border-red-500" : ""
             }`}
             buttonLeft={
@@ -225,7 +225,7 @@ const AddNewAddressForm = ({
                       className={`sm:w-6 sm:h-6 h-6 w-6`}
                       alt={countriesData[0].name}
                     />
-                    <Typography className="px-2" bold={"bold"}>
+                    <Typography className="px-2" bold={"bold"} size={"lg"}>
                       {" "}
                       +{selectedCountryData.callingCodes}
                     </Typography>

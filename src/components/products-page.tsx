@@ -18,12 +18,21 @@ export const ProductsPage = ({
 }) => {
   const [readMoreClick, setReadMoreClick] = useState(false);
   const router = useRouter();
-  
+
   const { query } = router;
-  const { pathname } = router;
+  const { asPath } = router;
+  const menuData = asPath.split("/").slice(1);
+  
+  // console.log(menuData[menuData.length - 1].split('?')[0]);
+  
+  // menuData[menuData.length - 1].split('?')[0]
+
   const productsSubQuery =
     query.collections || query.categories || query.brands || "";
-  const menuData = [ String(pathname).replace('/', ''), productsSubQuery.toString()];
+  // const menuData = [
+  //   breadCrumbData[1],
+  //   breadCrumbData[2],
+  // ];
 
   return (
     <div className="max-w-[1450px] mx-auto  sm:px-[10px] px-[5px]">
@@ -51,7 +60,7 @@ export const ProductsPage = ({
               className="object-cover lg:h-[20rem] md:h-[15rem] w-full mx-auto "
             />
           )}
-          <BreadCrumb type={type} menuData={menuData}/>
+          <BreadCrumb type={type} menuData={menuData} />
 
           {isBrandsPage
             ? categoryData.brand_details.short_description && (
@@ -117,11 +126,11 @@ export const ProductsPage = ({
                 </h1>
               ) : null}
               <h1 className="text-2xl  text-center   capitalize text-blue-500">
-                {menuData[1] ? menuData[1] : " Products"}{" "}
+                {menuData[1] ? menuData[1].split("?")[0] : " Products"}{" "}
               </h1>
             </div>
           </div>
-          <BreadCrumb type={type} menuData={menuData}/>
+          <BreadCrumb type={type} menuData={menuData} />
         </>
       )}
       <ProductsPageData

@@ -27,7 +27,7 @@ const SmNavbar = ({
     }
   };
   return (
-    <div className="navbar-container bg-white border-b border-muted md:hidden block ">
+    <div className="navbar-container bg-white  md:hidden block ">
       <SmNavbarTop />
       <div className="container-page ">
         <div className="flex  items-center py-1 space-x-3 rtl:space-x-reverse">

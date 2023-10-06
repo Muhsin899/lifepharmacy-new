@@ -38,7 +38,7 @@ const buttonVariants = cva(
           "  text-slate-700 !p-0 ",
       },
       size: {
-        default: cn(typographyVariants({ size: "sm" }), "py-2.5 px-5 !leading-[1.3]"),
+        default: cn(typographyVariants({ size: "default" }), "py-2.5 px-5 !text-[14px] !leading-[1.3]"),
         sm: cn(typographyVariants({ size: "sm" }), "px-3 py-1"),
         lg: cn(typographyVariants({ size: "default" }), "py-3 px-5"),
         xs: cn(typographyVariants({ size: "xs" }), "px-2 py-[1px]"),

@@ -88,9 +88,11 @@ const FiltersSection: FC<FilterProps> = ({ brandsData }) => {
   }
 
   function generatePath(slug: string) {
+    debugger
     router.push({
+      pathname:"products",
       query: {
-        categories: slug,
+        categories: slug
       },
     });
   }
@@ -160,7 +162,7 @@ const FiltersSection: FC<FilterProps> = ({ brandsData }) => {
                             }`}
                           >
                             <button
-                              className="flex space-x-3 rtl:space-x-reverse"
+                              className="flex space-x-3 rtl:space-x-reverse items-center"
                               onClick={() => {
                                 generatePath(slugify(item.name));
                               }}
@@ -206,7 +208,7 @@ const FiltersSection: FC<FilterProps> = ({ brandsData }) => {
                                     }`}
                                   >
                                     <button
-                                      className="flex space-x-3 rtl:space-x-reverse"
+                                      className="flex space-x-3 rtl:space-x-reverse items-center"
                                       onClick={() => {
                                         generatePath(child.slug);
                                       }}

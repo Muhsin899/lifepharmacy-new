@@ -307,12 +307,12 @@ const AuthModal = () => {
               <Tabs defaultValue="phone" className="border-none">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="phone" className="z-20">
-                    <Typography bold={"semibold"} size={"sm"}>
+                    <Typography bold={"semibold"} >
                       Using Phone
                     </Typography>
                   </TabsTrigger>
                   <TabsTrigger value="email">
-                    <Typography bold={"semibold"} size={"sm"}>
+                    <Typography bold={"semibold"} >
                       Using Email
                     </Typography>
                   </TabsTrigger>
@@ -322,14 +322,14 @@ const AuthModal = () => {
                   <div className="space-y-2">
                     <Typography
                       bold={"semibold"}
-                      size={"sm"}
+       
                       requiredField={true}
                     >
                       Enter Your Mobile Number
                     </Typography>
 
                     <Input
-                      sizes={"xs"}
+                      sizes={"sm"}
                       buttonLeft={
                         <Button
                           onClick={(e) => {
@@ -347,10 +347,10 @@ const AuthModal = () => {
                                 src={`https://hatscripts.github.io/circle-flags/flags/${selectedCountryData.alpha2Code.toLowerCase()}.svg`}
                                 width="50"
                                 height="50"
-                                className={`sm:w-6 sm:h-6 h-6 w-6  `}
+                                className={`sm:w-7 sm:h-7 h-6 w-6  `}
                                 alt={selectedCountryData.name}
                               />
-                              <Typography className="px-2" bold={"bold"}>
+                              <Typography className="px-2" bold={"bold"} size={"lg"}>
                                 {" "}
                                 +{selectedCountryData.callingCodes}
                               </Typography>
@@ -365,7 +365,7 @@ const AuthModal = () => {
                       className={cn(
                         typographyVariants({
                           bold: "bold",
-                          size: "default",
+                          size: "lg",
                         })
                       )}
                       onChange={(e) =>
@@ -389,6 +389,7 @@ const AuthModal = () => {
                         ) : credentialValidState.phone.state === "success" ? (
                           <Icon
                             type="checkIcon"
+                            sizes={"lg"}
                             variant={"inputIconRight"}
                             className="fill-green-500 text-white"
                           />
@@ -407,17 +408,17 @@ const AuthModal = () => {
                   <div className="space-y-2">
                     <Typography
                       bold={"semibold"}
-                      size={"sm"}
+               
                       requiredField={true}
                     >
                       Enter Your Email Address
                     </Typography>
 
                     <Input
-                      sizes={"xs"}
+                      sizes={"sm"}
                       className={typographyVariants({
                         bold: "bold",
-                        size: "default",
+                        size: "lg",
                       })}
                       iconRight={
                         credentialValidState.email.state === "loading" ? (
@@ -432,6 +433,7 @@ const AuthModal = () => {
                         ) : credentialValidState.email.state === "success" ? (
                           <Icon
                             type="checkIcon"
+                            sizes={"lg"}
                             variant={"inputIconRight"}
                             className="fill-green-500 text-white"
                           />
