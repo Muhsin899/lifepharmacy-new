@@ -14,7 +14,21 @@ export default async function getProductsDataByCat({
   context?: any;
   clientSideSessionData?: any;
 }) {
-  const session = !clientSideSessionData? await getServerSession(context.req, context.res, authOptions) : clientSideSessionData;
+// console.log(clientSideSessionData);
+
+  const getSessionData = ()=> {
+    if(clientSideSessionData){
+      return clientSideSessionData
+    }
+    else if(context){
+     return getServerSession(context.req, context.res, authOptions)
+    }
+    else{
+      return null
+    }
+  }
+
+  const session = getSessionData()
 
   var requestOptions = {
     method: "GET",
