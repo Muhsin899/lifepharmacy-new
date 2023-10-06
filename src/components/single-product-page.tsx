@@ -6,8 +6,6 @@ import ProductsSlider from "./products-slider";
 import BreadCrumb from "./breadcrumb";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import "swiper/css/navigation";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useCartActions } from "@/hooks/useCartActions";
 import { Button, buttonVariants } from "./ui/button";
 import { Typography, typographyVariants } from "./ui/typography";
@@ -31,6 +29,7 @@ import { Pagination, Navigation, Autoplay, Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import ReviewsComp from "./reviews";
 
 const SingleProductsContent = ({
   pro_data,
@@ -424,7 +423,7 @@ const SingleProductsContent = ({
                 setCheckedProducts={setCheckedProducts}
                 setAddedToCartItemData={setAddedToCartItemData}
                 frequentlyBroughtData={frequentlyBroughtData}
-
+                swiperRef={swiperRef2}
               />
             )}
             <div className="md:space-x-5  items-center md:hidden sm:flex block">
@@ -569,76 +568,7 @@ const SingleProductsContent = ({
             </div>
           </div>
 
-          <div className="lg:w-7/12 w-full py-3  px-2 ">
-            <div className="flex justify-between items-center mb-2">
-              <Typography bold={"semibold"} size={"xl"}>
-                Reviews{" "}
-              </Typography>
-              <div className="flex space-x-2 rtl:space-x-reverse h-fit items-center">
-                <button
-                  onClick={() => swiperRef2.current?.slidePrev()}
-                  className="bg-blue-500 p-1.5 rounded-full"
-                >
-                  <Icon type="chevronLeftIcon" className="text-white " />
-                </button>
-                <button
-                  onClick={() => swiperRef2.current?.slideNext()}
-                  className="bg-blue-500 p-1.5 rounded-full"
-                >
-                  <Icon type="chevronRightIcon" className="text-white  " />
-                </button>
-              </div>
-            </div>
-            <Swiper
-              slidesPerView={2}
-              spaceBetween={5}
-              onBeforeInit={(swiper) => {
-                swiperRef2.current = swiper;
-              }}
-              modules={[Navigation]}
-            >
-              {reviewsData.map((reviewData: any) => (
-                <SwiperSlide>
-               
-                    <div className="flex justify-start py-4  bg-slate-100  rounded-lg px-4 w-full">
-                      <div className="w-full">
-                        <div className="flex justify-between">
-                          <Typography bold={"semibold"} className="">
-                            {reviewData.user_details.name}
-                          </Typography>
-                          <div className="text-gray-400 sm:text-sm text-xs ">
-                            {formatDate(reviewData.created_at)}
-                          </div>
-                        </div>
-                        <div className=" w-1/2 flex justify-start space-x-0.5 py-2 rtl:space-x-reverse">
-                          {Array(5).fill(
-                            <Icon
-                              type="starIcon"
-                              className="fill-amber-500 text-amber-500"
-                              sizes={"sm"}
-                            />
-                          )}
-                        </div>
-                        <div className=" my-2 ">
-                          {reviewData.review ? (
-                            reviewData.review
-                          ) : (
-                            <Typography
-                              variant={"paragraph"}
-                              size={"sm"}
-                              className="italic"
-                            >
-                              No Comment
-                            </Typography>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-              
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+          <ReviewsComp reviewsData={reviewsData} />
         </div>
       </div>
 

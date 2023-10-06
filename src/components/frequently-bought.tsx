@@ -9,14 +9,13 @@ import { ProductPricesData } from "./Button";
 import { Checkbox } from "./ui/checkbox";
 import { Icon } from "./ui/icons";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Pagination, Navigation, Autoplay, Swiper as SwiperType } from "swiper";
-import { useRef } from "react";
 
 interface frequentlyBroughtDataProps {
   setCheckedProducts: any;
   setAddedToCartItemData: any;
   frequentlyBroughtData: any;
   checkedProducts: any;
+  swiperRef: any;
 }
 
 const FrequentlyBroughtComp: React.FC<frequentlyBroughtDataProps> = ({
@@ -24,9 +23,8 @@ const FrequentlyBroughtComp: React.FC<frequentlyBroughtDataProps> = ({
   setAddedToCartItemData,
   frequentlyBroughtData,
   checkedProducts,
+  swiperRef,
 }) => {
-  const swiperRef = useRef<SwiperType>();
-
   useEffect(() => {
     if (frequentlyBroughtData) {
       console.log(frequentlyBroughtData);
