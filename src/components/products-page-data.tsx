@@ -93,13 +93,14 @@ const ProductsPageData = ({
         }
       });
     } else {
-      getBrandProductData(
-        query.brand,
-        query.singleCategory ? query.singleCategory : "",
-        filterPaths,
+      getBrandProductData({
+        brandName: query.brand,
+        catSlug: query.singleCategory ? query.singleCategory : "",
+        filterPath: filterPaths,
         noOfProducts,
-        locale
-      ).then((brandsProductsData: any) => {
+        lang: locale,
+        clientSideSessionData:session
+      }).then((brandsProductsData: any) => {
         if (loadMoreData) {
           setData((prevContent: any) => [
             ...prevContent,
