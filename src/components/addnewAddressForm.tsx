@@ -67,7 +67,7 @@ const AddNewAddressForm = ({
     } else {
       return {
         created_at: currentDate.toISOString(),
-        updated_at: currentDate.toISOString(),
+        // updated_at: currentDate.toISOString(),
       };
     }
   };
@@ -82,7 +82,7 @@ const AddNewAddressForm = ({
         phone:
           "+" +
           selectedCountryData.callingCodes +
-          getValues("phone").replace(" ", ""),
+          getValues("phone").replace(/\s/g, ''),
         latitude: currentLocation[0],
         longitude: currentLocation[1],
       },
@@ -91,6 +91,8 @@ const AddNewAddressForm = ({
 
   function saveAddresstoDb(formDatas: any) {
     debugger;
+    console.log(formDatas);
+    
 
     var requestOptions = {
       method: "POST",
@@ -107,6 +109,7 @@ const AddNewAddressForm = ({
       .then((response) => {
         debugger;
         if (response.ok) {
+          debugger
           // setAddressDataIndex(0);
           setCloseModal();
           setFormData(formDataInitState);
