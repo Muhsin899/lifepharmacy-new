@@ -20,8 +20,8 @@ const LocationModal = () => {
     setSelectedLocation,
     setAddressDataIndex,
     detectUserLocation,
-    getLocationByIp,setCurrentCordinates
-    
+    getLocationByIp,
+    setCurrentCordinates,
   } = useModal();
 
   // const setCurrentCordinates = (lat: number, lng: number) => {
@@ -75,16 +75,19 @@ const LocationModal = () => {
             position.coords.latitude,
             position.coords.longitude
           );
+          setTimeout(() => {
           router.reload();
+          }, 400);
         },
         (error) => {
           getLocationByIp();
-          router.reload();
+          setTimeout(() => {
+            router.reload();
+            }, 400);
         }
       );
     }
-
-  }
+  };
 
   return (
     <ModalContainer
