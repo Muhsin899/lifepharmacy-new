@@ -319,9 +319,7 @@ li{
 .ol-footer ul li{
     @apply py-2
     }
-section{
-    @apply py-4
-}
+
 
 .banner-overlay>a {
     position: relative
@@ -473,16 +471,15 @@ section{
   }
 
   [data-sonner-toast] [data-icon] svg{
-    height: 30px  !important;
-    width: 30px !important ;
+    @apply md:!h-[30px] !h-[20px] md:!w-[30px] !w-[20px]
   }
 
   [data-sonner-toast] [data-title]{
-@apply !text-lg
+@apply md:!text-lg !text-base
   }
 
   [data-sonner-toast] [data-description]{
-@apply !text-base
+@apply md:!text-base text-sm
   }
 
   
