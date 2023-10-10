@@ -319,9 +319,9 @@ li{
 .ol-footer ul li{
     @apply py-2
     }
-section{
-    @apply py-4
-}
+/* section{
+    @apply py-0
+} */
 
 .banner-overlay>a {
     position: relative
