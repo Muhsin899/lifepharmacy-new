@@ -277,7 +277,7 @@ export default function DashboardPage({}) {
                 // router.push("/");
                 signOut({ callbackUrl: "/" });
                 toast.success("Success", {
-                  className: "space-x-3",
+                  className: "space-x-3 rtl:space-x-reverse",
                   description: "Log Out Successfull",
                 });
               }}

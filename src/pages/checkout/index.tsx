@@ -47,7 +47,7 @@ export default function Checkout({}) {
     ? cartItems.cart.shipment_data[0]
     : [];
   const cartSummery = cartItems.cart.cart_summary;
-  console.log(shipmentData.available_slots);
+  // console.log(shipmentData.available_slots);
 
   return domLoaded ? (
     <div className="grid grid-cols-12 gap-x-3 px-[10px] py-5 max-w-[1440px] mx-auto">
@@ -126,7 +126,7 @@ export default function Checkout({}) {
             <div className="flex space-x-2 items-center rtl:space-x-reverse">
               <Icon type="infoIcon" sizes={"xs"} />
               <Typography variant={"lifeText"} size={"xs"}>
-                Delivery From: {shipmentData.store_code}
+                Delivery From: {shipmentData && shipmentData.store_code}
               </Typography>
             </div>
             <Typography variant={"lifeText"} size={"xs"}>
@@ -159,12 +159,13 @@ export default function Checkout({}) {
               ))}
             </div>
           </div>
-          <div className="divide-gray-300 divide-y border-gray-300 border rounded-lg">
+          <div className="divide-gray-300 divide-y  border rounded-lg">
             <RadioGroup
-              className={""}
+              className={"!gap-1"}
               defaultValue={
-                cartItems.cart.shipment_data
-                  ? cartItems.cart.shipment_data[0].selected_slot.id
+                shipmentData ?
+    
+                 cartItems.cart.shipment_data[0].selected_slot.id
                   : null
               }
               onValueChange={(value) => {
@@ -186,7 +187,7 @@ export default function Checkout({}) {
                   (avSlot: any, indx: number) => (
                     <label
                       htmlFor={`delivery_slot-${indx}`}
-                      className={`cursor-pointer flex justify-between items-center  bg-slate-200 px-5 py-3 ${
+                      className={`cursor-pointer flex justify-between items-center  bg-slate-100 px-5 py-3 ${
                         indx % 2 === 0 ? "rounded-t-lg" : "rounded-b-lg"
                       }`}
                     >
@@ -396,6 +397,10 @@ export default function Checkout({}) {
             size={"lg"}
             disableBtn={!newCardSelected}
             className="w-full text-sm"
+            iconLeft={
+              btnLoadingState &&
+              <Icon type="loadingIcon" sizes={"sm"} animation={"spin"} className="mx-2"/>
+            }
           >
             PLACE ORDER{" "}
           </Button>
