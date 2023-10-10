@@ -32,6 +32,7 @@ export default function Checkout({}) {
     setModalFixedState,
     setaddNewAddress,
     AddressDataIndex,
+    locationOnClickHandle
   } = useModal();
   useEffect(() => {
     setModalFixedState(true);
@@ -60,7 +61,7 @@ export default function Checkout({}) {
             </div>
             <button
               className="bg-blue-800 text-sm  h-fit  px-2 py-[2px]  rounded-full flex items-center"
-              onClick={() => setaddNewAddress(true)}
+              onClick={() => locationOnClickHandle()}
             >
               <small className="text-[10px] leading-tight mt-[2px]">
                 CHANGE
