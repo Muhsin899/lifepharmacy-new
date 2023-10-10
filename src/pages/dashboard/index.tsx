@@ -226,10 +226,10 @@ export default function DashboardPage({}) {
                     {menuItemVisiblity === menuItem.id && (
                       <div className="bg-blue-500 h-2/3 my-auto w-[5px] absolute left-0 top-0 bottom-0 rounded-lg"></div>
                     )}
-                    <div className="flex space-x-1 items-center">
+                    <div className="flex space-x-1 items-center rtl:space-x-reverse">
                       <Icon
                         type={menuItem.iconType}
-                        className={`mr-3 text-slate-700 ${
+                        className={`mr-3 rtl:ml-3 text-slate-700 ${
                           menuItemVisiblity === menuItem.id && "text-blue-500"
                         }`}
                       />

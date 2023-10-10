@@ -32,7 +32,7 @@ export default function Checkout({}) {
     setModalFixedState,
     setaddNewAddress,
     AddressDataIndex,
-    locationOnClickHandle
+    locationOnClickHandle,
   } = useModal();
   useEffect(() => {
     setModalFixedState(true);
@@ -44,10 +44,11 @@ export default function Checkout({}) {
   const cartItemsData = cartItems.cart.cart_data
     ? cartItems.cart.cart_data.items
     : [];
-  const shipmentData = cartItems.cart.shipment_data
-    ? cartItems.cart.shipment_data[0]
-    : [];
-  const cartSummery = cartItems.cart.cart_summary;
+  const shipmentData =
+    cartItems && cartItems.cart.shipment_data
+      ? cartItems.cart.shipment_data[0]
+      : null;
+  const cartSummery = cartItems && cartItems.cart.cart_summary;
   // console.log(shipmentData.available_slots);
 
   return domLoaded ? (
@@ -137,36 +138,46 @@ export default function Checkout({}) {
 
           <div className="py-5">
             <div className="flex space-x-3 rtl:space-x-reverse overflow-x-auto scrollbar-thin pb-2">
-              {cartItemsData.map((cartData: any) => (
-                <div className="min-h-[70px] min-w-[70px] relative border-2 border-muted rounded-lg">
-                  <Image
-                    src={
-                      cartData.items[0].featured_image
-                        ? cartData.items[0].featured_image
-                        : "/images/default-product-image.png"
-                    }
-                    alt="pro-img"
-                    height="50"
-                    width="50"
-                    className="h-full w-full"
-                  />
-                  <div className="absolute -right-2 -bottom-2 rounded-full bg-primary px-2">
-                    <Typography variant={"secondary"} size={"sm"}>
-                      {" "}
-                      x {cartData.items[0].qty}
-                    </Typography>
+              {cartItemsData.length > 0 ? (
+                cartItemsData.map((cartData: any) => (
+                  <div className="min-h-[70px] min-w-[70px] relative border-2 border-muted rounded-lg">
+                    <Image
+                      src={
+                        cartData.items[0].featured_image
+                          ? cartData.items[0].featured_image
+                          : "/images/default-product-image.png"
+                      }
+                      alt="pro-img"
+                      height="50"
+                      width="50"
+                      className="h-full w-full"
+                    />
+                    <div className="absolute -right-2 -bottom-2 rounded-full bg-primary px-2">
+                      <Typography variant={"secondary"} size={"sm"}>
+                        {" "}
+                        x {cartData.items[0].qty}
+                      </Typography>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <Typography
+                  size={"sm"}
+                  variant={"paragraph"}
+                  alignment={"horizontalCenter"}
+                  className="italic w-full"
+                >
+                  Items Added to the Cart will Appear here
+                </Typography>
+              )}
             </div>
           </div>
           <div className="divide-gray-300 divide-y  border rounded-lg">
             <RadioGroup
               className={"!gap-1"}
               defaultValue={
-                shipmentData ?
-    
-                 cartItems.cart.shipment_data[0].selected_slot.id
+                shipmentData
+                  ? cartItems.cart.shipment_data[0].selected_slot.id
                   : null
               }
               onValueChange={(value) => {
@@ -297,59 +308,63 @@ export default function Checkout({}) {
             </Typography>
           </div>
         </div>
-        <div className="border-2 border-muted h-fit  p-3 rounded-lg shadow-md text-life  text-xs space-y-2">
-          <Typography bold={"bold"} size={"sm"}>
-            ORDER SUMMARY
-          </Typography>
-          <div
-            className={cn(
-              "space-y-1",
-              typographyVariants({ variant: "lifeText", size: "xs" })
-            )}
-          >
-            <div className="flex justify-between">
-              <p>Order Total</p>
-              <p>AED {cartSummery.sub_total}</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Items Discount</p>
-              <p>- AED {cartSummery.item_discount}</p>
-            </div>
-            <div className="flex justify-between">
-              <p>Estimated VAT %</p>
-              <p>AED {cartSummery.vat}</p>
-            </div>
-            <div className="flex justify-between">
-              <p>
-                Shipping{" "}
-                <span>
-                  <a href="#" className="text-blue-500">
-                    <small> Know More</small>
-                  </a>
-                </span>
-              </p>
-              {cartSummery.shipping_fee != 0 ? (
-                <p>{cartSummery.shipping_fee}</p>
-              ) : (
-                <p>FREE</p>
+        {cartSummery && (
+          <div className="border-2 border-muted h-fit  p-3 rounded-lg shadow-md text-life  text-xs space-y-2">
+            <Typography bold={"bold"} size={"sm"}>
+              ORDER SUMMARY
+            </Typography>
+            <div
+              className={cn(
+                "space-y-1",
+                typographyVariants({ variant: "lifeText", size: "xs" })
               )}
-              {/* <p> FREE ABOVE 29 AED</p> */}
+            >
+              <div className="flex justify-between">
+                <p>Order Total</p>
+                <p>AED {cartSummery.sub_total}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>Items Discount</p>
+                <p>- AED {cartSummery.item_discount}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>Estimated VAT %</p>
+                <p>AED {cartSummery.vat}</p>
+              </div>
+              <div className="flex justify-between">
+                <p>
+                  Shipping{" "}
+                  <span>
+                    <a href="#" className="text-blue-500">
+                      <small> Know More</small>
+                    </a>
+                  </span>
+                </p>
+                {cartSummery.shipping_fee != 0 ? (
+                  <p>{cartSummery.shipping_fee}</p>
+                ) : (
+                  <p>FREE</p>
+                )}
+                {/* <p> FREE ABOVE 29 AED</p> */}
+              </div>
+            </div>
+            <div className="bg-slate-100 w-10/12 mx-auto h-[1px] my-2 "></div>
+            <div className="space-y-3">
+              <div className="flex justify-between py-2 ">
+                <p>
+                  {" "}
+                  <span className="text-life">
+                    <b>Total Amount</b>
+                  </span>{" "}
+                  (Inclusive of VAT)
+                </p>
+                <p className="text-blue-500 font-semibold">
+                  {cartSummery.total}
+                </p>
+              </div>
             </div>
           </div>
-          <div className="bg-slate-100 w-10/12 mx-auto h-[1px] my-2 "></div>
-          <div className="space-y-3">
-            <div className="flex justify-between py-2 ">
-              <p>
-                {" "}
-                <span className="text-life">
-                  <b>Total Amount</b>
-                </span>{" "}
-                (Inclusive of VAT)
-              </p>
-              <p className="text-blue-500 font-semibold">{cartSummery.total}</p>
-            </div>
-          </div>
-        </div>
+        )}
         <div className="border border-blue-600 rounded-lg px-3 py-2">
           <div className="flex space-x-2 rtl:space-x-reverse px-2 bg-white -mt-4 w-fit">
             <Typography size={"xs"}>PAYING WITH</Typography>
@@ -389,7 +404,7 @@ export default function Checkout({}) {
               <Typography size={"xs"}>TOTAL PAYABLE</Typography>
             </div>
             <Typography variant={"primary"} size={"sm"}>
-              AED {cartSummery.total}
+              AED {cartSummery?.total}
             </Typography>
           </div>
           <Button
@@ -399,8 +414,14 @@ export default function Checkout({}) {
             disableBtn={!newCardSelected}
             className="w-full text-sm"
             iconLeft={
-              btnLoadingState &&
-              <Icon type="loadingIcon" sizes={"sm"} animation={"spin"} className="mx-2"/>
+              btnLoadingState && (
+                <Icon
+                  type="loadingIcon"
+                  sizes={"sm"}
+                  animation={"spin"}
+                  className="mx-2"
+                />
+              )
             }
           >
             PLACE ORDER{" "}

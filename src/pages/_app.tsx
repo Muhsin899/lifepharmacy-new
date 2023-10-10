@@ -7,7 +7,6 @@ import getBrandsData from "@/lib/getBrandsData";
 import NextNProgress from "nextjs-progressbar";
 import Head from "next/head";
 import { ModalProvider } from "@/components/ui/modalcontext";
-import { Toaster, toast } from "sonner";
 import { Poppins } from "next/font/google";
 
 type TProps = AppProps & {
@@ -35,7 +34,6 @@ const App = ({ Component, data, brands_data, pageProps }: TProps) => {
       <NextNProgress color="#eba834" />
       <SessionProvider>
         <main className={poppins.className}>
-          <Toaster position="top-right" richColors={true} />
           <ModalProvider>
             <Layout data={data} brands_data={brands_data}>
               <Component {...pageProps} />
