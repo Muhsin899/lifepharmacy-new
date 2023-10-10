@@ -57,7 +57,7 @@ export function useCartActions() {
           debugger;
           return `${data.message}`;
         },
-        className: "space-x-2",
+        className: "space-x-2 rtl:space-x-reverse",
         error: "Error",
       });
     }
@@ -90,7 +90,7 @@ export function useCartActions() {
         return `${data.message}`;
       },
       error: "Error",
-      className: "space-x-2",
+      className: "space-x-2 rtl:space-x-reverse",
     });
   };
 
@@ -105,7 +105,7 @@ export function useCartActions() {
         label: "Check Out",
         onClick: () => redirect("/checkout"),
       },
-      className: "space-x-3",
+      className: "space-x-3 rtl:space-x-reverse",
     });
     // toast({
     //   title: "Success",
@@ -128,7 +128,7 @@ export function useCartActions() {
     // });
 
     toast.success("Success", {
-      className: "space-x-3",
+      className: "space-x-3 rtl:space-x-reverse",
       description: "Item removed from Wishlist",
       action: {
         label: "Check Out",
@@ -151,7 +151,7 @@ export function useCartActions() {
       body: JSON.stringify(payloadData),
     };
     fetch(
-      `https://${process.env.NEXT_PUBLIC_API_ENDPOINT}com/api/carts/v2/${cartId}/update?lang=ae-en`,
+      `https://${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/carts/v2/${cartId}/update?lang=ae-en`,
       requestOptions
     )
       .then((res) => res.json())

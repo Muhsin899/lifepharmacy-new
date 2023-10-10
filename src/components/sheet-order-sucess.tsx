@@ -93,6 +93,7 @@ export default function OrderSucessSheet() {
 
   const cartSummary = cartItems.cart.cart_summary;
   const swiperRef = useRef<SwiperType>();
+console.log(frequentlyBroughtData);
 
   return (
     <OrderSucessContainer
@@ -149,7 +150,7 @@ export default function OrderSucessSheet() {
                 Cart Total
               </Typography>
               <Typography bold={"bold"}>
-                <span className="text-xs">AED</span> {cartSummary.total || cartSummary.sub_total}
+                <span className="text-xs">AED</span> {cartSummary && (cartSummary.total || cartSummary.sub_total)}
               </Typography>
             </div>
             <div className="md:flex block space-y-2 md:space-x-2 space-x-0  md:space-y-0 rtl:space-x-reverse md:rtl:space-x-reverse">

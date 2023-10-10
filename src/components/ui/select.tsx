@@ -1,7 +1,6 @@
-import { Listbox, ListboxProps, Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import React, { Fragment, ReactNode } from "react";
-import { Icon, IconProps } from "./icons";
 import { Typography } from "./typography";
 
 const SelectContainer = React.forwardRef(

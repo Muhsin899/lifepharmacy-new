@@ -113,7 +113,7 @@ const AuthModal = () => {
           loading: "Loading...",
           success: `OTP Verified Successfully`,
           error: "Error",
-          className: "space-x-2",
+          className: "space-x-2 rtl:space-x-reverse",
         });
      
     } else {
@@ -141,7 +141,7 @@ const AuthModal = () => {
         loading: "Loading...",
         success: `OTP Verified Successfully`,
         error: "Error",
-        className: "space-x-2",
+        className: "space-x-2 rtl:space-x-reverse",
       });
 
       setCredentialValidState({
@@ -182,12 +182,12 @@ const AuthModal = () => {
           debugger;
           toast.error("Error", {
             description: "Something went wrong Please try again",
-            className: "space-x-3",
+            className: "space-x-3 rtl:space-x-reverse",
           });
         } else {
           toast.success("Success", {
             description: "OTP Sent Successfully",
-            className: "space-x-3",
+            className: "space-x-3 rtl:space-x-reverse",
           });
 
           // toast({
