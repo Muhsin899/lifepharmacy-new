@@ -53,7 +53,6 @@ const AddNewAddressForm = ({
 
   const deliveryOptions = ["Home", "Other"];
 
-
   const createdAndUpdatedData = () => {
     const currentDate = new Date();
 
@@ -114,10 +113,22 @@ const AddNewAddressForm = ({
         }
       })
       .then((result: any) => {
-        debugger;
-        const addressesData = [];
-        addressesData.push(...session?.token.addresses, result.data.address);
-        update({ addresses: addressesData });
+        const updatedAddress = session?.token.addresses.filter(
+          (addr: any) => addr.id !== result.data.address.id
+        );
+
+        if (updatedAddress.length === session?.token.addresses.length) {
+          update({
+            addresses: [
+              ...updatedAddress,
+              { id: result.data.address.id, ...result.data.address },
+            ],
+          });
+        } else {
+          update({
+            addresses: [...session?.token.addresses, result.data.address],
+          });
+        }
 
         if (isModal) {
           setCloseModal();
