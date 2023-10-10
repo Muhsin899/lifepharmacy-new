@@ -37,11 +37,10 @@ const AuthModal = () => {
   const [state, setState] = useState("");
   const [countDownVisible, setCountDownVisible] = useState(false);
   const handleChange = (state: string) => {
- 
     setState(state);
-    if(state.length === 4){
+    if (state.length === 4) {
       setTimeout(() => {
-        otpIsValid(state)
+        otpIsValid(state);
       }, 200);
     }
   };
@@ -87,7 +86,7 @@ const AuthModal = () => {
     setLoadingState(true);
     if (signInUsing.type === "phone") {
       const promise = new Promise(async (resolve) => {
-         signIn("credentials", {
+        signIn("credentials", {
           phone: phoneNumberforOTP,
           code: otpValue,
           isPhone: "true",
@@ -103,19 +102,15 @@ const AuthModal = () => {
           }
           setLoadingState(false);
 
-        resolve(res);
-
+          resolve(res);
         });
-
-
       });
-        toast.promise(promise, {
-          loading: "Loading...",
-          success: `OTP Verified Successfully`,
-          error: "Error",
-          className: "space-x-2 rtl:space-x-reverse",
-        });
-     
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: `OTP Verified Successfully`,
+        error: "Error",
+        className: "space-x-2 rtl:space-x-reverse",
+      });
     } else {
       const promise = new Promise(async (resolve) => {
         await signIn("credentials", {
@@ -189,12 +184,6 @@ const AuthModal = () => {
             description: "OTP Sent Successfully",
             className: "space-x-3 rtl:space-x-reverse",
           });
-
-          // toast({
-          //   title: "Success",
-          //   message: "OTP Sent Successfully",
-          //   type: "success",
-          // });
         }
       })
       .then((result) => console.log(result))
@@ -216,7 +205,8 @@ const AuthModal = () => {
     const timeout = setTimeout(() => {
       if (credentialValue != null || "") {
         if (
-          (credentialType === "phone" && isValidPhoneNumber(credentialValue)) ||
+          (credentialType === "phone" &&
+            isValidPhoneNumber("+" + credentialValue)) ||
           (credentialType === "email" &&
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
               credentialValue
@@ -376,9 +366,7 @@ const AuthModal = () => {
                       onChange={(e) =>
                         isValidCredentials(
                           "phone",
-                          "+" +
-                            selectedCountryData.callingCodes +
-                            e.target.value
+                          selectedCountryData.callingCodes + e.target.value
                         )
                       }
                       iconRight={

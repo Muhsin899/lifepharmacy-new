@@ -40,8 +40,8 @@ const iconVariants = cva("block", {
   variants: {
     variant: {
       default: "",
-      inputIconRight: "rtl:mr-2 ltr:ml-2 my-auto pointer-events-none",
-      inputIconLeft: "rtl:ml-2  ltr:mr-2 my-auto pointer-events-none",
+      inputIconRight: "rtl:mr-2 ml-2 my-auto pointer-events-none",
+      inputIconLeft: "rtl:ml-2  mr-2 my-auto pointer-events-none",
       loading:
         "animate-spin absolute right-2 inset-y-0  ml-2 flex my-auto pointer-events-none",
     },

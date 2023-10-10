@@ -72,7 +72,7 @@ const Multiselect = ({ categoriesData }: { categoriesData: any }) => {
                   key={index}
                   iconRight={
                     <div onClick={() => removeTag(tag)}>
-                      <Icon type="crossIcon" sizes={"sm"} className="ml-2" />
+                      <Icon type="crossIcon" sizes={"sm"} variant={"inputIconRight"} />
                     </div>
                   }
                 >

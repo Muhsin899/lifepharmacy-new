@@ -52,10 +52,7 @@ const AddNewAddressForm = ({
   const listboxRef = useRef<any>(null);
 
   const deliveryOptions = ["Home", "Other"];
-  const [deliverToTypes, setDeliverTo] = useState(deliveryOptions[0]);
-  // const [selectedCountry, setCountrySelected] = useState<any>(
-  //   currentCountryDetails.country
-  // );
+
 
   const createdAndUpdatedData = () => {
     const currentDate = new Date();
@@ -67,7 +64,7 @@ const AddNewAddressForm = ({
     } else {
       return {
         created_at: currentDate.toISOString(),
-        // updated_at: currentDate.toISOString(),
+        updated_at: currentDate.toISOString(),
       };
     }
   };
@@ -82,9 +79,9 @@ const AddNewAddressForm = ({
         phone:
           "+" +
           selectedCountryData.callingCodes +
-          getValues("phone").replace(/\s/g, ''),
-        latitude: currentLocation[0],
-        longitude: currentLocation[1],
+          getValues("phone").replace(/\s/g, ""),
+        latitude: currentLocation[0].toString(),
+        longitude: currentLocation[1].toString(),
       },
     });
   };
@@ -92,7 +89,6 @@ const AddNewAddressForm = ({
   function saveAddresstoDb(formDatas: any) {
     debugger;
     console.log(formDatas);
-    
 
     var requestOptions = {
       method: "POST",
@@ -109,13 +105,10 @@ const AddNewAddressForm = ({
       .then((response) => {
         debugger;
         if (response.ok) {
-          debugger
-          // setAddressDataIndex(0);
-          setCloseModal();
+          debugger;
+
           setFormData(formDataInitState);
-          // setTimeout(() => {
-          // update();
-          // }, 2000);
+          return response.json();
         } else {
           throw new Error("Request failed");
         }
@@ -125,6 +118,12 @@ const AddNewAddressForm = ({
         const addressesData = [];
         addressesData.push(...session?.token.addresses, result.data.address);
         update({ addresses: addressesData });
+
+        if (isModal) {
+          setCloseModal();
+        } else {
+          setaddnewAddressFormVisibility(false);
+        }
       })
       .catch((error) => console.log("error while fetching search data", error));
   }
@@ -254,8 +253,10 @@ const AddNewAddressForm = ({
             </div>
 
             <SelectContainer
-              value={deliverToTypes}
-              setValue={setDeliverTo}
+              value={formData.type}
+              setValue={(value: any) =>
+                setFormData((prevData: any) => ({ ...prevData, type: value }))
+              }
               ref={listboxRef}
               iconProps={
                 <Icon

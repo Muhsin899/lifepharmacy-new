@@ -48,15 +48,10 @@ const LanguageChangeModal: FC<compProps> = ({ setModalState, modalState }) => {
     //@ts-ignore
     document.querySelector("html").setAttribute("dir", getDirection(path));
 
-    // toast({
-    //   title: "Sucess",
-    //   message: "Language Changed Successfully",
-    //   type: "success",
-    // });
-
     toast.success("Success", {
       description: "Language Changed Successfully",
-      className: "space-x-3",
+      className: "space-x-3 rtl:space-x-reverse",
+      duration:100000
 
     });
   }

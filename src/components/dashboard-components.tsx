@@ -74,7 +74,6 @@ const DashboardComp = ({ setActiveMenuItem }: { setActiveMenuItem: any }) => {
 };
 
 const OrderComp = () => {
-
   const [orderDetails, setOrderDetails] = useState<any>(null);
 
   const { data: session } = useSession();
@@ -90,7 +89,6 @@ const OrderComp = () => {
   };
 
   const { redirect } = useModal();
-
 
   return orderDetails && orderDetails.length > 0 ? (
     <div className="space-y-2">
@@ -177,7 +175,7 @@ const OrderComp = () => {
         variant={"outline"}
         className="px-10"
         iconRight={
-          <Icon type="rightArrowIcon" sizes={"sm"} className="ml-2 " />
+          <Icon type="rightArrowIcon" sizes={"sm"} variant={"inputIconRight"} />
         }
       >
         GO SHOP
@@ -189,7 +187,6 @@ const OrderComp = () => {
 const ReturnOrdersComp = () => {
   const { redirect } = useModal();
 
-
   return (
     <div className="py-4 w-full space-y-4 sm:text-sm text-xs">
       <Typography size={"sm"} variant={"paragraph"}>
@@ -200,7 +197,7 @@ const ReturnOrdersComp = () => {
         variant={"outline"}
         className="px-10"
         iconRight={
-          <Icon type="rightArrowIcon" sizes={"sm"} className="ml-2 " />
+          <Icon type="rightArrowIcon" sizes={"sm"} variant={"inputIconRight"} />
         }
       >
         GO SHOP
@@ -256,7 +253,9 @@ const PrescriptionComp = () => {
               rounded={"full"}
               className="!text-sm"
               variant={"normal"}
-              iconLeft={<Icon type="plusIcon" sizes={"sm"} className="mr-2" />}
+              iconLeft={
+                <Icon type="plusIcon" sizes={"sm"} variant={"inputIconLeft"} />
+              }
             >
               Upload
             </Button>
@@ -266,7 +265,11 @@ const PrescriptionComp = () => {
               className="!text-sm"
               variant={"normal"}
               iconLeft={
-                <Icon type="chevronLeftIcon" sizes={"sm"} className="mr-2" />
+                <Icon
+                  type="chevronLeftIcon"
+                  sizes={"sm"}
+                  variant={"inputIconLeft"}
+                />
               }
               onClick={() => {
                 prescriptionFormVisibility.noPresription ||
@@ -296,7 +299,7 @@ const PrescriptionComp = () => {
                       <Icon
                         type="infoIcon"
                         sizes={"sm"}
-                        className="ltr:ml-1 rtl:mr-1 text-blue-500"
+                  variant={"inputIconRight"}
                       />
                     }
                     size={"sm"}
@@ -705,7 +708,9 @@ const PrescriptionComp = () => {
             </Typography>
             <Button
               variant={"outline"}
-              iconRight={<Icon type="plusIcon" className="ml-2" sizes={"sm"} />}
+              iconRight={
+                <Icon type="plusIcon" className="ml-2 rtl:mr-2" sizes={"sm"} />
+              }
             >
               ADD PRESCRIPTION
             </Button>
@@ -737,6 +742,8 @@ const AddressComp = () => {
     values: { ...formData, phone: formatPhoneNumber(`+${formData.phone}`) },
   });
 
+  console.log(addnewAddressFormVisibility);
+
   return (
     <div className="py-4 w-full space-y-5">
       <div className="space-y-3">
@@ -767,6 +774,7 @@ const AddressComp = () => {
             errors={addressFormErrors}
             handleSubmit={addressDataSubmit}
             register={registerAddnewAddressForm}
+            setaddnewAddressFormVisibility={setaddnewAddressFormVisibility}
           />
         </div>
       ) : (
@@ -774,12 +782,12 @@ const AddressComp = () => {
           {session?.token.addresses.map((addr: any) => (
             <div className="border-muted border shadow-sm rounded-lg px-4 py-3 space-y-4 h-full flex flex-col justify-between ">
               <div className="space-y-2">
-                <Typography size={"sm"} bold={"bold"} variant={"lifeText"}>
+                <Typography bold={"bold"} variant={"lifeText"}>
                   {addr.type}
                 </Typography>
                 <div className="w-full bg-[#dee2e6] mx-auto h-[1px]"></div>
                 <div>
-                  <Typography size={"xs"} bold={"semibold"} className="mb-2">
+                  <Typography size={"sm"} bold={"semibold"} className="mb-2">
                     {addr.name}
                   </Typography>
                   <Typography size={"xs"}>{addr.google_address}</Typography>
@@ -789,28 +797,38 @@ const AddressComp = () => {
                 <Button
                   variant={"white"}
                   size={"sm"}
-                  className={typographyVariants({
-                    variant: "primary",
-                    size: "sm",
-                  })}
+                  className={cn(
+                    typographyVariants({
+                      variant: "primary",
+                      size: "sm",
+                    }),
+                    "px-0"
+                  )}
                   iconRight={
-                    <Icon type="editIcon" sizes={"xs"} className="ml-1" />
+                    <Icon
+                      type="editIcon"
+                      sizes={"xs"}
+                      className="ml-1 rtl:mr-1"
+                    />
                   }
                   onClick={() => {
                     setFormData(addr);
                     setaddnewAddressFormVisibility(true);
                   }}
                 >
-                  Edit
+                  <span className="leading-[0px]">Edit</span>
                 </Button>
 
                 <Button
                   variant={"white"}
                   size={"xs"}
-                  className={typographyVariants({
-                    variant: "danger",
-                    size: "sm",
-                  })}
+                  className={cn(
+                    typographyVariants({
+                      variant: "danger",
+                      size: "sm",
+                    }),
+                    "px-0"
+                  )}
                   onClick={() => {
                     // update();
                     deleteAddress(
@@ -830,10 +848,14 @@ const AddressComp = () => {
                     });
                   }}
                   iconRight={
-                    <Icon type="crossIcon" sizes={"sm"} className="ml-1" />
+                    <Icon
+                      type="crossIcon"
+                      sizes={"sm"}
+                      className="ml-1 rtl:mr-1"
+                    />
                   }
                 >
-                  Delete
+                  <span className="leading-[0px]">Delete</span>
                 </Button>
               </div>
             </div>
@@ -845,7 +867,9 @@ const AddressComp = () => {
             }}
             variant={"outline"}
             className="w-full h-[147px]"
-            iconLeft={<Icon type="editIcon" sizes={"sm"} className="mr-2 " />}
+            iconLeft={
+              <Icon type="editIcon" sizes={"sm"} variant={"inputIconLeft"} />
+            }
           >
             New Address
           </Button>
@@ -997,7 +1021,7 @@ const AccountDetailsComp = () => {
           className="px-5 py-2.5"
           size={"sm"}
           iconRight={
-            <Icon type="rightArrowIcon" sizes={"sm"} className="ml-2" />
+            <Icon type="rightArrowIcon" sizes={"sm"} variant={"inputIconRight"} />
           }
         >
           SAVE CHANGES
@@ -1016,7 +1040,7 @@ const WalletComp = () => {
     <div className="space-y-3 w-full ">
       <div className="bg-[#f4f7ff] p-3 rounded-lg w-full space-x-2 rtl:space-x-reverse sm:text-sm text-xs flex items-center">
         <Typography bold={"semibold"}>Wallet Balance: </Typography>
-        <Typography variant={"lifeText"} size={"sm"} bold={"semibold"}>
+        <Typography variant={"lifeText"} bold={"semibold"}>
           AED {session?.token.wallet_balance}.00
         </Typography>
       </div>
@@ -1030,7 +1054,11 @@ const WalletComp = () => {
           variant={"outline"}
           className="px-6 py-2.5"
           iconRight={
-            <Icon type="rightArrowIcon" sizes={"sm"} className="ml-3" />
+            <Icon
+              type="rightArrowIcon"
+              sizes={"sm"}
+              variant={"inputIconRight"}
+            />
           }
         >
           GO SHOP
@@ -1098,7 +1126,11 @@ const AppointmentsComp = () => {
           className="px-6 py-2.5"
           size={"sm"}
           iconRight={
-            <Icon type="rightArrowIcon" sizes={"sm"} className="ml-3" />
+            <Icon
+              type="rightArrowIcon"
+              sizes={"sm"}
+              variant={"inputIconRight"}
+            />
           }
         >
           BOOK AN APPOINTMENT

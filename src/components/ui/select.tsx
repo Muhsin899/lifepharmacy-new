@@ -66,7 +66,7 @@ const SelectOption = React.forwardRef(
         key={keyValueData.key}
         className={({ active }) =>
           `relative rounded-md cursor-default select-none py-2 pl-10 pr-4 ${
-            active ? "bg-slate-100 text-amber-900" : "text-gray-900"
+            active ? "bg-slate-100 font-semibold" : "text-gray-900"
           }`
         }
         value={keyValueData.value}

@@ -78,7 +78,7 @@ type ModalContextState = {
   detectUserLocation: any;
   getLocationByIp: any;
   setCurrentCordinates: any;
-  redirect:any
+  redirect: any;
 };
 
 const ModalContext = createContext<ModalContextState | undefined>(undefined);
@@ -220,18 +220,16 @@ export const ModalProvider = ({ children }: { children: any }) => {
   }
 
   const formDataInitState = {
-    entity_id: 1462724,
-    // longitude: "55.272887000000000",
-    // latitude: "25.219370000000000",
-    // area: "Satwa",
+
+    type: "Home",
+    country: "United Arab Emirates",
+    area: "Satwa",
     suitable_timing: "morning",
-    // created_at: currentDate.toISOString(),
-    // updated_at: currentDate.toISOString(),
+
     belongs_to: "user",
     deleted_at: null,
     is_validated: 1,
   };
-
 
   const redirect = (pathname: string) => {
     router.push(pathname);
@@ -351,8 +349,6 @@ export const ModalProvider = ({ children }: { children: any }) => {
   //   }
   // }, [session?.token.token]);
 
-  
-
   useEffect(() => {
     debugger;
 
@@ -366,7 +362,7 @@ export const ModalProvider = ({ children }: { children: any }) => {
             session.token.selected_address.longitude
           );
         } else {
-          debugger
+          debugger;
           setAddressDataIndex(session.token.addresses[0]);
           setLocationCordinates(
             session.token.addresses[0].latitude,
@@ -418,7 +414,7 @@ export const ModalProvider = ({ children }: { children: any }) => {
     }));
   };
 
-  console.log(AddressDataIndex);
+  // console.log(AddressDataIndex);
 
   const locationOnClickHandle = () => {
     debugger;
@@ -499,7 +495,7 @@ export const ModalProvider = ({ children }: { children: any }) => {
     detectUserLocation,
     getLocationByIp,
     setCurrentCordinates,
-    redirect
+    redirect,
   };
 
   return (

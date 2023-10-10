@@ -42,13 +42,12 @@ const ProductsPageData = ({
   const [productFilterApplied, setProductsFilterApplied] = useState(false);
   const [isClientSideData, setIsClientSideData] = useState(false);
   const noOfProductsCurrently = isClientSideData
-    ? data.length 
+    ? data.length
     : categoryData.products.length;
 
   const [showMoreProductsbtn, setShowMoreProductsbtn] = useState(
     noOfProductsCurrently < categoryData.total_count
   );
-  console.log(showMoreProductsbtn);
 
   const { locale } = useLanguage();
   const { data: session } = useSession();
@@ -86,10 +85,20 @@ const ProductsPageData = ({
         clientSideSessionData: session,
       }).then((proData: any) => {
         if (loadMoreData) {
+          debugger;
           setData((prevContent: any) => [
             ...prevContent,
             ...proData.data.products,
           ]);
+
+          if (
+            productsLength >
+            categoryData.products.length + proData.data.products.length
+          ) {
+            setShowMoreProductsbtn(true);
+          } else {
+            setShowMoreProductsbtn(false);
+          }
         } else {
           setData(proData.data.products);
           setProductsFilterApplied(false);
@@ -109,20 +118,21 @@ const ProductsPageData = ({
             ...prevContent,
             ...brandsProductsData.data.products,
           ]);
+
+          if (
+            productsLength >
+            categoryData.products.length +
+              brandsProductsData.data.products.length
+          ) {
+            setShowMoreProductsbtn(true);
+          } else {
+            setShowMoreProductsbtn(false);
+          }
         } else {
           setData(brandsProductsData.data.products);
           setProductsFilterApplied(false);
         }
       });
-    }
-    if (loadMoreData) {
-      debugger;
-
-      if (productsLength > noOfProductsCurrently) {
-        setShowMoreProductsbtn(true);
-      } else {
-        setShowMoreProductsbtn(true);
-      }
     }
   }
 
