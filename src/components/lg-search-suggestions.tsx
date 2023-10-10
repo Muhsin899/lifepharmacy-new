@@ -36,7 +36,7 @@ export default function LgSearchSuggestions({
                 <Typography variant={"primary"} size={"sm"} bold={"semibold"}>
                   SUGGESTIONS
                 </Typography>
-                <div className="flex my-2 flex-wrap  group-search md:h-20 h-24 overflow-y-auto">
+                <div className="flex my-2 flex-wrap  group-search md:h-20 h-28 overflow-y-auto">
                   {searchData.results[1].hits
                     .slice(0, 10)
                     .map((sug_data: any) => (
@@ -54,7 +54,7 @@ export default function LgSearchSuggestions({
                           searchSuggestions(sug_data.query, false, "search");
                         }}
                         variant={"normal"}
-                        className="mr-2 h-fit text-life py-1.5"
+                        className="mr-2  mb-2 h-fit text-life py-1.5"
                       >
                         {sug_data.query}
                       </Button>
